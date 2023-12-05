@@ -30,3 +30,4 @@ jobs:
     - name: Test AWS connection
       run: |
         aws sts get-caller-identity
+        aws iam list-open-id-connect-providers
