@@ -1,0 +1,32 @@
+name: Deploy Terraform
+
+on:
+  push:
+    branches:
+    - main
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write # This is required for requesting the JWT from GitHub's OIDC provider
+      contents: read  # This is required for actions/checkout
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-region: ${{ env.AWS_REGION }}
+        role-to-assume: arn:aws:iam::103437585953:role/terraform
+        role-session-name: terraform-deploy
+
+    - name: Test AWS connection
+      run: |
+        aws sts get-caller-identity
