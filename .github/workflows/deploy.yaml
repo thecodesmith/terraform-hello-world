@@ -28,9 +28,7 @@ jobs:
         role-session-name: terraform-deploy
 
     - name: Test AWS connection
-      run: |
-        aws sts get-caller-identity
-        aws iam list-open-id-connect-providers
+      run: aws sts get-caller-identity
 
     - name: Set up Terraform CLI
       uses: hashicorp/setup-terraform@v3
@@ -46,6 +44,8 @@ jobs:
     - name: Terraform validate
       run: terraform validate
 
-    - name: Terraform Plan
+    - name: Terraform plan
       run: terraform plan
-      continue-on-error: true
+
+    - name: Terraform apply
+      run: terraform apply -auto-approve
