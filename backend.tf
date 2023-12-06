@@ -9,6 +9,5 @@ terraform {
     role_arn = "arn:aws:iam::103437585953:role/terraform"
     encrypt  = "true"
 
-    dynamodb_table = "thecodesmith-demo-terraform-state-lock"
   }
 }
