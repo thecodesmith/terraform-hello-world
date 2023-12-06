@@ -31,3 +31,12 @@ jobs:
       run: |
         aws sts get-caller-identity
         aws iam list-open-id-connect-providers
+
+    - name: Set up Terraform CLI
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.6.5"
+
+    - name: Show Terraform plan
+      run: |
+        terraform plan
