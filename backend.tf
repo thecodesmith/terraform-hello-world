@@ -6,7 +6,7 @@ terraform {
     bucket   = "thecodesmith-demo-terraform-state"
     key      = "terraform.tfstate"
     profile  = ""
-    role_arn = ""
+    role_arn = "arn:aws:iam::103437585953:role/terraform"
     encrypt  = "true"
 
     dynamodb_table = "thecodesmith-demo-terraform-state-lock"

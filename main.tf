@@ -7,6 +7,7 @@ module "terraform_state_backend" {
   stage      = "demo"
   name       = "terraform"
   attributes = ["state"]
+  role_arn   = "arn:aws:iam::103437585953:role/terraform"
 
   terraform_backend_config_file_path = "."
   terraform_backend_config_file_name = "backend.tf"
