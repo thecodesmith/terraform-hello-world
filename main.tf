@@ -212,14 +212,14 @@ resource "aws_ecs_cluster" "main" {
 resource "aws_ecs_task_definition" "hello_world" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  family                   = "hello-world-service"
+  family                   = "hello-world"
   cpu                      = 256 # Fargate CPU units (1024 units = 1 vCPU)
   memory                   = 512 # MiB
   task_role_arn            = aws_iam_role.ecs_task_role.arn
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
 
   container_definitions = jsonencode([{
-    name      = "hello-world-container"
+    name      = "hello-world"
     image     = "${var.container_image}:latest"
     essential = true
     portMappings = [{
@@ -338,7 +338,7 @@ resource "aws_lb_listener" "https" {
   port              = 443
 
   ssl_policy      = "ELBSecurityPolicy-2016-08"
-  certificate_arn = var.alb_tls_cert_arn # TODO
+  certificate_arn = var.alb_tls_cert_arn
 
   default_action {
     target_group_arn = aws_lb_target_group.ecs.id
