@@ -1,4 +1,5 @@
 container_image = "103437585953.dkr.ecr.us-east-1.amazonaws.com/hello-world"
+container_tag   = "bcca4c07f45b981891a48b1249365cc45867572a"
 container_port  = 3000
 
 # This is the *.thecodesmith.com cert

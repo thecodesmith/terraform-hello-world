@@ -28,6 +28,10 @@ variable "container_image" {
   type = string
 }
 
+variable "container_tag" {
+  type = string
+}
+
 variable "container_port" {
   type = number
 }
@@ -220,7 +224,7 @@ resource "aws_ecs_task_definition" "hello_world" {
 
   container_definitions = jsonencode([{
     name      = "hello-world"
-    image     = "${var.container_image}:latest"
+    image     = "${var.container_image}:${var.container_tag}"
     essential = true
     portMappings = [{
       containerPort = var.container_port
