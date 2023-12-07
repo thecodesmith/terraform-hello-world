@@ -24,6 +24,16 @@ terraform {
   }
 }
 
+variable "primary_region" {
+  type = string
+  default = "us-east-1"
+}
+
+variable "secondary_region" {
+  type = string
+  default = "eu-central-1"
+}
+
 variable "container_image" {
   type = string
 }
@@ -209,6 +219,12 @@ resource "aws_ecr_lifecycle_policy" "main" {
   })
 }
 
+resource "aws_cloudwatch_log_group" "hello_world" {
+  name = "hello-world"
+  retention_in_days = 7
+  kms_key_id = aws_kms_key.primary.arn
+}
+
 resource "aws_ecs_cluster" "main" {
   name = "main"
 }
@@ -230,6 +246,14 @@ resource "aws_ecs_task_definition" "hello_world" {
       containerPort = var.container_port
       hostPort      = var.container_port
     }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group = aws_cloudwatch_log_group.hello_world.name
+        awslogs-region = var.primary_region
+        awslogs-stream-prefix = "ecs"
+      }
+    }
   }])
 }
 

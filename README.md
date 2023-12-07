@@ -11,7 +11,7 @@ This project demonstrates deploying AWS infrastructure as code with Terraform an
 - [ ] Deploy the following resources in your AWS account using only Terraform code:
    - [x] A multi region KMS CMK and replica
    - [x] A VPC with 2 public and 2 private subnets and a NAT gateway
-   - [ ] A publicly accessible "hello world" container in ECS Fargate fronted by a load balancer
+   - [x] A publicly accessible "hello world" container in ECS Fargate fronted by a load balancer
    - [ ] Bonus: Capture ECS/container log output to a CloudWatch log group which is encrypted with your CMK
 
 ## Development
@@ -39,3 +39,4 @@ This project uses the [terraform-aws-tfstate-backend](https://github.com/cloudpo
 ### AWS KMS docs
 
 - https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html
