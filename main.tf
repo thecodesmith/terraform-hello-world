@@ -1,5 +1,5 @@
-# Follow the bootstrapping procedure here to set up the state backend the first time:
-# https://github.com/cloudposse/terraform-aws-tfstate-backend#usage
+# Follow the bootstrapping procedure here to set up the state backend
+# for the first time in a new account: https://github.com/cloudposse/terraform-aws-tfstate-backend#usage
 module "terraform_state_backend" {
   source           = "cloudposse/tfstate-backend/aws"
   version          = "1.3.0"

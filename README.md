@@ -19,6 +19,10 @@ This project demonstrates deploying AWS infrastructure as code with Terraform an
    - [x] A publicly accessible "hello world" container in ECS Fargate fronted by a load balancer
    - [x] Bonus: Capture ECS/container log output to a CloudWatch log group which is encrypted with your CMK
 
+Potential future improvements:
+- Have the app image publisher workflow also update the ECS task definition to use the new image tag (which is taken from the commit SHA)
+- Run the image publisher workflow on changes to the `hello-world-app` directory instead of just the manual trigger
+
 ## Development
 
 To initialize Terraform locally for the first time on a new machine, run:
