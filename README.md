@@ -2,6 +2,8 @@
 
 This project demonstrates deploying AWS infrastructure as code with Terraform and GitHub Actions.
 
+The `hello world` app is running at https://hello-terraform.thecodesmith.com.
+
 ## Status
 
 - [![Publish image to ECR](https://github.com/thecodesmith/terraform-demo/actions/workflows/build-image.yaml/badge.svg)](https://github.com/thecodesmith/terraform-demo/actions/workflows/build-image.yaml)
@@ -19,10 +21,6 @@ This project demonstrates deploying AWS infrastructure as code with Terraform an
    - [x] A publicly accessible "hello world" container in ECS Fargate fronted by a load balancer
    - [x] Bonus: Capture ECS/container log output to a CloudWatch log group which is encrypted with your CMK
 
-Potential future improvements:
-- Have the app image publisher workflow also update the ECS task definition to use the new image tag (which is taken from the commit SHA)
-- Run the image publisher workflow on changes to the `hello-world-app` directory instead of just the manual trigger
-
 ## Development
 
 To initialize Terraform locally for the first time on a new machine, run:
@@ -39,6 +37,16 @@ To apply changes from the configuration, run:
 
     terraform apply
 
+To run the app and build the app image:
+
+    cd hello-world-app
+    nvm use lts/iron                     # set up the correct node/npm version
+    npm install                          # install app dependencies
+    node index.js                        # run the app
+    docker build -t hello-world .        # build the app image
+    docker run -p 3000:3000 hello-world  # run the containerized app
+    curl localhost:3000                  # check the app response
+
 ## Reference
 
 ### Terraform AWS state backend
@@ -50,3 +58,8 @@ This project uses the [terraform-aws-tfstate-backend](https://github.com/cloudpo
 - https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html
 - https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html
 - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html
+
+## Potential future improvements
+
+- Have the app image publisher workflow also update the ECS task definition to use the new image tag (which is taken from the commit SHA)
+- Run the image publisher workflow on changes to the `hello-world-app` directory instead of just the manual trigger
