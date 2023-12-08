@@ -24,6 +24,11 @@ terraform {
   }
 }
 
+variable "account_id" {
+  type = string
+  default = "103437585953"
+}
+
 variable "primary_region" {
   type    = string
   default = "us-east-1"
@@ -65,6 +70,38 @@ resource "aws_kms_key" "primary" {
   description         = "Primary US region CMK for encrypting CloudWatch logs"
   multi_region        = true
   enable_key_rotation = true
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Sid    = "Enable management by root user"
+      Effect = "Allow"
+      Principal = {
+        AWS = "arn:aws:iam::${var.account_id}:root"
+      }
+      Action   = "kms:*"
+      Resource = "*"
+      }, {
+      Sid    = "Enable CloudWatch to encrypt/decrypt logs"
+      Effect = "Allow"
+      Principal = {
+        Service = "logs.${var.primary_region}.amazonaws.com"
+      }
+      Action = [
+        "kms:Encrypt*",
+        "kms:Decrypt*",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:Describe*",
+      ]
+      Resource = "*"
+      Condition = {
+        ArnLike = {
+          "kms:EncryptionContext:aws:logs:arn" = "arn:aws:logs:${var.primary_region}:${var.account_id}:*"
+        }
+      }
+    }]
+  })
 }
 
 resource "aws_kms_replica_key" "replica" {
