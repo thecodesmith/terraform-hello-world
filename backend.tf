@@ -8,6 +8,5 @@ terraform {
     profile  = ""
     role_arn = "arn:aws:iam::103437585953:role/terraform"
     encrypt  = "true"
-
   }
 }
