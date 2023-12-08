@@ -2,6 +2,11 @@
 
 This project demonstrates deploying AWS infrastructure as code with Terraform and GitHub Actions.
 
+## Status
+
+- [![Publish image to ECR](https://github.com/thecodesmith/terraform-demo/actions/workflows/build-image.yaml/badge.svg)](https://github.com/thecodesmith/terraform-demo/actions/workflows/build-image.yaml)
+- [![Deploy Terraform](https://github.com/thecodesmith/terraform-demo/actions/workflows/deploy.yaml/badge.svg)](https://github.com/thecodesmith/terraform-demo/actions/workflows/deploy.yaml)
+
 ## Tasks
 
 - [x] Create an empty AWS account
