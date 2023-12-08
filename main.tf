@@ -25,7 +25,7 @@ terraform {
 }
 
 variable "account_id" {
-  type = string
+  type    = string
   default = "103437585953"
 }
 
